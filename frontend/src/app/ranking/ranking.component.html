@@ -1,0 +1,41 @@
+
+<div class="ranking-container">
+    <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Suchfilter
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ search.getValue().date.toLocaleDateString("de-DE") }} @ {{ search.getValue().hour }} Uhr in {{ search.getValue().region }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-form-field appearance="fill">
+          <mat-label>Datum</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="searchBuffer.date" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      
+      <mat-form-field appearance="fill">
+          <mat-label>Stunde</mat-label>
+          <select matNativeControl required [(ngModel)]="searchBuffer.hour">
+            <option *ngFor="let hr of hours" value="{{hr}}">{{ hr }}</option>
+          </select>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+            <mat-label>Region</mat-label>
+            <select matNativeControl required [(ngModel)]="searchBuffer.region">
+              <option *ngFor="let re of Region | enumToArray" value="{{re.index}}">{{ re.value }}</option>
+            </select>
+          </mat-form-field>
+
+          <button mat-button color="primary" (click)="applySearch()">Aktualisieren</button>
+  
+    </mat-expansion-panel>
+</mat-accordion>
+
+    <app-video-item *ngFor="let video of videos" [video]="video"></app-video-item>
+</div>
