@@ -1,0 +1,7 @@
+{
+    "image": "gradle:jdk11",
+    "extensions": [
+        "vscjava.vscode-java-pack",
+        "gabrielbb.vscode-lombok"
+    ]
+}

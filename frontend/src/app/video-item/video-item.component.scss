@@ -1,0 +1,31 @@
+mat-card {
+    margin: 10px 0;
+}
+
+.subtitle-skip-margin {
+    margin-top: -16px !important;
+}
+
+mat-card-header a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+mat-card-header a:hover {
+    text-decoration: underline;
+}
+
+.icon-count {
+    padding: 0 10px;
+    color: gray;
+}
+
+.rank-num {
+    font-size: 32pt;
+    line-height: 32pt;
+    font-weight: 600;
+    height: inherit;
+    width: inherit;
+    display: inline-block;
+    text-align: center;
+}

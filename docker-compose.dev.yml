@@ -1,0 +1,42 @@
+version: "3"
+
+volumes:
+  pgadmin_data: {}
+
+services:
+  api:
+    image: gradle:jdk11
+    volumes:
+      # Mount the root folder that contains .git
+      - .:/workspace:cached
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    ports:
+      - 8100:8080
+
+  fetcher:
+    image: gradle:jdk11
+    volumes:
+      # Mount the root folder that contains .git
+      - .:/workspace:cached
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+  frontend:
+    image: node:15-alpine
+    volumes:
+      # Mount the root folder that contains .git
+      - .:/workspace:cached
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    ports:
+      - 8200:4200
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'admin@admin.com'
+      PGADMIN_DEFAULT_PASSWORD: 'admin'
+    volumes:
+      - 'pgadmin_data:/var/lib/pgadmin'
+    ports:
+      - 8300:80
+    networks:
+      - db

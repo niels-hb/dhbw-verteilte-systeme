@@ -1,0 +1,12 @@
+{
+    "name": "Frontend",
+    "dockerComposeFile": [
+        "../docker-compose.yml",
+        "../docker-compose.dev.yml",
+    ],
+    "service": "frontend",
+    "shutdownAction": "none",
+    // Open the sub-folder with the source code
+    "workspaceFolder": "/workspace/frontend",
+    "postCreateCommand": "npm i -g @angular/cli"
+}

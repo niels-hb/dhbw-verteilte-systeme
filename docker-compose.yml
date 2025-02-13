@@ -1,0 +1,64 @@
+version: "3"
+
+networks:
+  db: {}
+  rmi:
+    ipam:
+     driver: default
+     config:
+       - subnet: 172.16.238.0/24
+  public: {}
+
+volumes:
+  db: {}
+
+services:
+  postgres:
+    restart: always
+    image: postgres:13
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./postgres:/docker-entrypoint-initdb.d/:ro
+    ports:
+      - 5432:5432
+    networks:
+      - db
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+
+  api:
+    restart: always
+    depends_on:
+      - postgres
+    networks:
+      db: {}
+      rmi:
+        ipv4_address: 172.16.238.2
+      public: {}
+
+  fetcher:
+    restart: always
+    depends_on:
+      - api
+    networks:
+      - rmi
+
+  frontend:
+    restart: always
+    networks:
+      - public
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    depends_on:
+      - api
+      - frontend
+    volumes:
+      - ./nginx:/etc/nginx/conf.d:ro
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - public

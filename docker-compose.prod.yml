@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  api:
+    build:
+      dockerfile: 'api/Dockerfile'
+      context: './'
+
+  fetcher:
+    build:
+      dockerfile: 'fetcher/Dockerfile'
+      context: './'
+
+  frontend:
+    build:
+      dockerfile: './Dockerfile'
+      context: './frontend/'

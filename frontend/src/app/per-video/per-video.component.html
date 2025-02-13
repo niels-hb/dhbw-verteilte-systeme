@@ -1,0 +1,29 @@
+<div class="videoContainer">
+    <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Suchfilter
+        </mat-panel-title>
+        <mat-panel-description>
+          Video mit ID <span style="font-style: italic; padding: 0 5pt;">{{ search.getValue().videoId }}</span> in {{ search.getValue().region }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+        <mat-form-field appearance="fill">
+            <mat-label>Region</mat-label>
+            <select matNativeControl required [(ngModel)]="searchBuffer.region">
+              <option *ngFor="let re of Region | enumToArray" value="{{re.index}}">{{ re.value }}</option>
+            </select>
+          </mat-form-field>
+
+          <button mat-button color="primary" (click)="applySearch()">Aktualisieren</button>
+  
+    </mat-expansion-panel>
+</mat-accordion>
+<app-video-item 
+    *ngFor="let videoSet of videoSets"
+    [video]="videoSet"
+    [showFetchedOn]="true"
+></app-video-item>
+</div>

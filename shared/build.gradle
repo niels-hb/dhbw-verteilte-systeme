@@ -1,0 +1,28 @@
+plugins {
+	id 'java'
+}
+
+group = 'de.dhbw.verteilte-systeme'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly 'org.projectlombok:lombok:1.18.16'
+	annotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+	testCompileOnly 'org.projectlombok:lombok:1.18.16'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
+}
+
+jar {
+	archiveName 'shared.jar'
+}
+
+task copyJar(type: Copy, dependsOn: jar) {
+	from jar
+	into '.'
+}
